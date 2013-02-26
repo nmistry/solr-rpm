@@ -29,7 +29,9 @@ cp -pr example/solr/* "%{buildroot}%{_prefix}"
 rm %{buildroot}%{_prefix}/README.txt
 cp -pr dist "%{buildroot}%{_prefix}"
 cp -pr contrib "%{buildroot}%{_prefix}"
-cp -p client/ruby/solr-ruby/solr/conf/schema.xml "%{buildroot}%{_prefix}"/conf
+mkdir -p "%{buildroot}%{_prefix}"/conf
+cp -p example/solr/collection1/conf/schema.xml "%{buildroot}%{_prefix}"/conf
+cp -p example/solr/collection1/conf/solrconfig.xml "%{buildroot}%{_prefix}"/conf
 mkdir -p %{buildroot}/etc/tomcat6/Catalina/localhost/
 %__install -D -m0644 "%{SOURCE1}" "%{buildroot}/etc/tomcat6/Catalina/localhost/solr.xml"
 sed -i "s/VERSION/%{ver}/g" "%{buildroot}/etc/tomcat6/Catalina/localhost/solr.xml"
@@ -49,6 +51,8 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_prefix}/conf/solrconfig.xml
 %{_prefix}/solr.xml
 /etc/tomcat6/Catalina/localhost/solr.xml
+%{_prefix}/zoo.cfg
+%{_prefix}/collection1
 %{_prefix}/bin
 %{_prefix}/conf
 %{_prefix}/contrib
@@ -57,5 +61,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Feb 26 2013 Nicholas Mistry <nicholas.mistry@rackspace.com>
+* Tue Feb 26 2013 Robert Collazo <robert.collazo@rackspace.com>
 * Tue Jan 18 2012 Jean-Francois Roche <jfroche@affinitic.be>
 - Initial implementation
