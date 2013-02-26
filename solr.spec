@@ -12,6 +12,7 @@ Source2:        solrconfig.xml
 BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 Requires:	/usr/sbin/groupadd /usr/sbin/useradd
 Requires: 	tomcat6
+Requires:   java-1.7.0-openjdk
 
 %description
 %{summary}
